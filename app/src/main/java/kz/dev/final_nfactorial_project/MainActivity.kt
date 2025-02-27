@@ -1,6 +1,8 @@
 package kz.dev.final_nfactorial_project
 
 import android.os.Bundle
+import android.util.Log
+import android.window.SplashScreen
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -11,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import kz.dev.final_nfactorial_project.presentation.splash.SplashScreen
 import kz.dev.final_nfactorial_project.ui.theme.Final_nfactorial_projectTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,10 +23,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             Final_nfactorial_projectTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+//                    Greeting(
+//                        name = "Android",
+//                        modifier = Modifier.padding(innerPadding)
+//                    )
+                    SplashScreen()
+                    Log.e("dd", "$innerPadding")
                 }
             }
         }
