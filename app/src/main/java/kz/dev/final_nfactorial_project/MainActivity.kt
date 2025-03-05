@@ -13,25 +13,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.fragment.NavHostFragment
 import kz.dev.final_nfactorial_project.presentation.splash.SplashScreen
 import kz.dev.final_nfactorial_project.ui.theme.Final_nfactorial_projectTheme
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity(R.layout.activity_main) {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent {
-            Final_nfactorial_projectTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    Greeting(
-//                        name = "Android",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
-                    SplashScreen()
-                    Log.e("dd", "$innerPadding")
-                }
-            }
-        }
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        navController.setGraph(R.navigation.app_graph)
     }
 }
 
