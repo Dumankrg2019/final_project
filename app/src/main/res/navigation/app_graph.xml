@@ -8,5 +8,14 @@
         android:id="@+id/splashFragment"
         android:name="kz.dev.final_nfactorial_project.presentation.splash.SplashFragment"
         android:label="fragment_spalsh"
-        tools:layout="@layout/activity_main" />
+        tools:layout="@layout/activity_main" >
+        <action
+            android:id="@+id/action_splashFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="kz.dev.final_nfactorial_project.auth.presentation.AuthFragment"
+        android:label="fragment_auth"
+        tools:layout="@layout/fragment_auth" />
 </navigation>

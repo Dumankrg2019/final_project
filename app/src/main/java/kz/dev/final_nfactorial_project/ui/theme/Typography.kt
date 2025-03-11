@@ -6,14 +6,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 data class AppTypography(
+    val bigTitle: TextStyle,
     val title: TextStyle,
     val headline: TextStyle,
     val body: TextStyle,
+    val bodyTiny: TextStyle,
     val caption: TextStyle,
+    val captionLess: TextStyle,
     val captionLittle: TextStyle,
 )
 
 val appTypography = AppTypography(
+    bigTitle = TextStyle(
+        fontSize = 23.sp,
+        lineHeight = 28.sp,
+        fontWeight = FontWeight.Bold,
+    ),
     title = TextStyle(
             fontSize = 22.sp,
             lineHeight = 26.sp,
@@ -29,10 +37,20 @@ val appTypography = AppTypography(
         lineHeight = 19.sp,
         fontWeight = FontWeight.Normal,
     ),
+    bodyTiny = TextStyle(
+        fontSize = 15.sp,
+        lineHeight = 16.sp,
+        fontWeight = FontWeight.Normal,
+    ),
     caption = TextStyle(
         fontSize = 11.sp,
         lineHeight = 13.sp,
         fontWeight = FontWeight.Normal,
+    ),
+    captionLess = TextStyle(
+        fontSize = 12.sp,
+        lineHeight = 13.sp,
+        fontWeight = FontWeight.Bold,
     ),
     captionLittle = TextStyle(
         fontSize = 8.sp,
