@@ -1,6 +1,5 @@
-package kz.dev.final_nfactorial_project.auth.presentation
+package kz.dev.final_nfactorial_project.registration
 
-import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -22,12 +21,9 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -41,8 +37,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -51,15 +45,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import kz.dev.final_nfactorial_project.R
+import kz.dev.final_nfactorial_project.auth.presentation.AuthEvent
+import kz.dev.final_nfactorial_project.auth.presentation.AuthState
 import kz.dev.final_nfactorial_project.ui.theme.LocalColors
 import kz.dev.final_nfactorial_project.ui.theme.LocalTypography
 
 @Composable
-fun AuthScreen(
-    state: AuthState,
-    onEvent:(AuthEvent) -> Unit,
+fun RegistrationScreen(
+    state: RegistrationState,
+    onEvent:(RegistrationEvent) -> Unit,
 ) {
     var login by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -83,7 +78,7 @@ fun AuthScreen(
             modifier = Modifier.weight(1f) // Этот блок центрирует контент
         ) {
             Text(
-                text = "Войти в аккаунт",
+                text = stringResource(R.string.registration),
                 style = LocalTypography.current.bigTitle,
                 modifier = Modifier.padding(bottom = 24.dp)
             )
@@ -99,7 +94,7 @@ fun AuthScreen(
                 PasswordField()
                 Spacer(modifier = Modifier.height(37.dp))
                 // "Войти" button
-                ButtonSignIn(signIn = { onEvent(AuthEvent.OnEnterClick(login, password)) })
+                ButtonSignIn(onEvent, login, password)
             }
         }
 
@@ -215,17 +210,18 @@ private fun PasswordField() {
         ),
         textStyle = LocalTypography.current.bodyTiny,
 
-    )
+        )
 }
 
 @Composable
-private fun ButtonSignIn(signIn: () -> Unit) {
+private fun ButtonSignIn(onEvent: (RegistrationEvent) -> Unit,
+                         login: String, password: String) {
     Button(
         modifier = Modifier
             .fillMaxWidth()
             .height(42.dp),
         onClick = {
-            signIn()
+            onEvent(RegistrationEvent.OnRegistrationClick(login, password))
         },
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(
@@ -233,7 +229,7 @@ private fun ButtonSignIn(signIn: () -> Unit) {
         ),
     ) {
         Text(
-            text = stringResource(R.string.enter),
+            text = stringResource(R.string.registration),
             color = LocalColors.current.commonColors.white,
             style = LocalTypography.current.bodyTiny,
             textAlign = TextAlign.Center
@@ -242,22 +238,22 @@ private fun ButtonSignIn(signIn: () -> Unit) {
 }
 
 @Composable
-private fun BottomBlock(onEvent:(AuthEvent) -> Unit) {
+private fun BottomBlock( onEvent:(RegistrationEvent) -> Unit) {
     Row(
         modifier = Modifier
             .padding(bottom = 36.dp)
     ) {
         Text(
-            text = stringResource(R.string.not_account),
+            text = stringResource(R.string.have_account),
             color = LocalColors.current.commonColors.greyText,
             style = LocalTypography.current.captionLess
         )
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            modifier = Modifier
-
-                .clickable { onEvent(AuthEvent.OnRegistrationClick) },
-            text = stringResource(R.string.registration),
+            modifier = Modifier.clickable {
+                onEvent(RegistrationEvent.OnEnterClick)
+            },
+            text = stringResource(R.string.enter),
             color = LocalColors.current.commonColors.primary,
             style = LocalTypography.current.captionLess
         )
@@ -267,6 +263,6 @@ private fun BottomBlock(onEvent:(AuthEvent) -> Unit) {
 //@Preview(showBackground = true)
 //@Composable
 //fun Preview() {
-//    AuthScreen({_, _ ->}, { })
+//    RegistrationScreen({_, _ ->}, { })
 //
 //}
