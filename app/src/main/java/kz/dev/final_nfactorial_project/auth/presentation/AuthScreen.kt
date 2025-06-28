@@ -64,6 +64,9 @@ fun AuthScreen(
     var login by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
+    var loginError by remember { mutableStateOf<String?>(null) }
+    var passwordError by remember { mutableStateOf<String?>(null) }
+
     Column(
         modifier = Modifier
             .safeContentPadding()
